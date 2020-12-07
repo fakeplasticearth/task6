@@ -1,11 +1,16 @@
 ﻿#include <iostream>
 #include <cstdlib>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 float dist(pair<int, int> dot) {
     float d = sqrt(dot.first * dot.first + dot.second * dot.second);
     return d;
+}
+
+bool fcmp(pair<float, pair<int, int> > dot1, pair<float, pair<int, int> > dot2) {
+    return dot1.first < dot2.first;
 }
 
 vector <pair <int, int> > get_distances(vector <pair<int, int> > coords) {
@@ -16,14 +21,16 @@ vector <pair <int, int> > get_distances(vector <pair<int, int> > coords) {
         current_pair = make_pair(dist(*it), make_pair((*it).first, (*it).second));
         *(d_it1 + (it - coords.begin())) = current_pair;
     }
-
+    /*
     for (; d_it1 != dist_vector.end(); d_it1++) {
         for (d_it2 = dist_vector.begin() + (d_it1 - dist_vector.begin()) + 1; d_it2 != dist_vector.end(); d_it2++) {
             if ((*d_it1).first > (*d_it2).first) {
                 swap(*d_it1, *d_it2);
             }
         }
-    }
+    }*/
+    sort(dist_vector.begin(), dist_vector.end(), fcmp);
+
     vector <pair <int, int> > ans(coords.size());
     vector <pair<int, int> >::iterator it = ans.begin();
     for (d_it1 = dist_vector.begin(); d_it1 != dist_vector.end(); d_it1++) {
