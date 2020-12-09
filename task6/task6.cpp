@@ -10,7 +10,22 @@ float dist(pair<int, int> dot) {
 }
 
 bool fcmp(pair<float, pair<int, int> > dot1, pair<float, pair<int, int> > dot2) {
-    return dot1.first < dot2.first;
+    if (dot1.first < dot2.first)
+        return 1;
+    if (dot1.first > dot2.first)
+        return 0;
+    if (dot1.first == dot2.first) {
+        if (dot1.second.first < dot2.second.first)
+            return 1;
+        if (dot1.second.first > dot2.second.first)
+            return 0;
+        if (dot1.second.first == dot2.second.first) {
+            if (dot1.second.second <= dot2.second.second)
+                return 1;
+            else
+                return 0;
+        }
+    }
 }
 
 vector <pair <int, int> > get_distances(vector <pair<int, int> > coords) {
